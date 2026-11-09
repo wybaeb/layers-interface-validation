@@ -8,7 +8,7 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 DIST = ROOT / "dist"
-VERSION = "2026.11.09.4"
+VERSION = "2026.11.09.5"
 FILES = (
     "interface_validation_lab/AGENTS.md",
     "interface_validation_lab/.cline/skills/interface-validation/SKILL.md",
@@ -18,7 +18,6 @@ FILES = (
     "interface_validation_lab/research_flow.py",
     "interface_validation_lab/run_study.py",
     "interface_validation_lab/validation_lab.py",
-    ".vscode/tasks.json",
 )
 
 

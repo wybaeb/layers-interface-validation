@@ -1,7 +1,7 @@
 {
-  "version": "2026.11.09.4",
-  "sha256": "92739dde0450af028aa277e62089f86f14c392d4159bca6322bf31be11b01db0",
-  "installer_sha256": "06bc773c378c2f30dca5ea541ae0a098fec8c8ce19e6571f1be511e5f19db975",
+  "version": "2026.11.09.5",
+  "sha256": "adad2db34c11e3a3fd6c15128fc01d510b75afc5d8d28eeb92af058be2d6ab5f",
+  "installer_sha256": "b9c7e4257491d65a535fc71569991bfd1efe4a0a333385eaeaf16e09a825f945",
   "files": [
     "interface_validation_lab/AGENTS.md",
     "interface_validation_lab/.cline/skills/interface-validation/SKILL.md",
@@ -10,8 +10,7 @@
     "interface_validation_lab/launcher.py",
     "interface_validation_lab/research_flow.py",
     "interface_validation_lab/run_study.py",
-    "interface_validation_lab/validation_lab.py",
-    ".vscode/tasks.json"
+    "interface_validation_lab/validation_lab.py"
   ],
   "preserves": [
     "interface_validation_lab/studies",

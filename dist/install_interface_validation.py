@@ -13,7 +13,7 @@ import zipfile
 from datetime import datetime, timezone
 from pathlib import Path
 
-VERSION = "2026.11.09.4"
+VERSION = "2026.11.09.5"
 BASE_URL = os.environ.get(
     "LAYERS_INTERFACE_UPDATE_BASE_URL",
     "https://wybaeb.github.io/layers-interface-validation/dist",
@@ -29,7 +29,6 @@ ALLOWED = {
     "interface_validation_lab/research_flow.py",
     "interface_validation_lab/run_study.py",
     "interface_validation_lab/validation_lab.py",
-    ".vscode/tasks.json",
 }
 
 
