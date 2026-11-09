@@ -1,0 +1,4 @@
+__pycache__/
+*.pyc
+interface_validation_lab/runs/
+interface_validation_lab/studies/

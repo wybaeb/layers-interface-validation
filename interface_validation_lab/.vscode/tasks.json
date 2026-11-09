@@ -1,0 +1,49 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "Проверка интерфейса: проверить входы",
+      "type": "process",
+      "command": "python3",
+      "windows": {"command": "py", "args": ["-3", "${workspaceFolder}/run_study.py", "${input:study}", "--preflight"]},
+      "args": ["${workspaceFolder}/run_study.py", "${input:study}", "--preflight"],
+      "options": {"cwd": "${workspaceFolder}"},
+      "problemMatcher": []
+    },
+    {
+      "label": "Проверка интерфейса: подготовить исследование",
+      "type": "process",
+      "command": "python3",
+      "windows": {"command": "python"},
+      "args": ["${workspaceFolder}/run_study.py", "${input:study}"],
+      "options": {"cwd": "${workspaceFolder}"},
+      "problemMatcher": []
+    },
+    {
+      "label": "Проверка интерфейса: проверить и собрать отчёт",
+      "type": "process",
+      "command": "python3",
+      "windows": {"command": "python"},
+      "args": ["${workspaceFolder}/run_study.py", "${input:study}", "--finish"],
+      "options": {"cwd": "${workspaceFolder}"},
+      "problemMatcher": []
+    },
+    {
+      "label": "Проверка интерфейса: сбросить результаты",
+      "type": "process",
+      "command": "python3",
+      "windows": {"command": "python"},
+      "args": ["${workspaceFolder}/run_study.py", "${input:study}", "--reset"],
+      "options": {"cwd": "${workspaceFolder}"},
+      "problemMatcher": []
+    }
+  ],
+  "inputs": [
+    {
+      "id": "study",
+      "type": "promptString",
+      "description": "Путь к папке исследования относительно interface_validation_lab",
+      "default": "studies/my_study"
+    }
+  ]
+}
