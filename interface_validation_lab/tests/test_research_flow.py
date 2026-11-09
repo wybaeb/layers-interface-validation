@@ -104,6 +104,32 @@ class ResearchFlowCase(unittest.TestCase):
         with self.assertRaises(Exception):
             build_tree_test(self.study)
 
+    def test_previous_manifest_is_migrated_without_deleting_research(self):
+        with contextlib.redirect_stdout(io.StringIO()):
+            prepare(self.study)
+        research = self.study / "research"
+        manifest_path = research / "research_manifest.json"
+        manifest = json.loads(manifest_path.read_text(encoding="utf-8"))
+        manifest.pop("source_ia_sha256")
+        manifest.pop("screen_hashes")
+        manifest_path.write_text(
+            json.dumps(manifest, ensure_ascii=False, indent=2) + "\n", encoding="utf-8"
+        )
+        marker = research / "existing-result.json"
+        marker.write_text('{"preserve":true}\n', encoding="utf-8")
+        (research / "tree_tasks.json").write_text(
+            '{"tasks":[{"prompt":"Найти расписание","targetLabel":"Расписание"}]}', encoding="utf-8"
+        )
+
+        with contextlib.redirect_stdout(io.StringIO()) as output:
+            build_tree_test(self.study)
+
+        migrated = json.loads(manifest_path.read_text(encoding="utf-8"))
+        self.assertRegex(migrated["source_ia_sha256"], r"^[0-9a-f]{64}$")
+        self.assertEqual(set(migrated["screen_hashes"]), {"Главная.svg", "Расписание.svg"})
+        self.assertTrue(marker.is_file())
+        self.assertIn("результаты исследования сохранены", output.getvalue())
+
     def test_task_target_must_exist_in_tree(self):
         with contextlib.redirect_stdout(io.StringIO()):
             prepare(self.study)

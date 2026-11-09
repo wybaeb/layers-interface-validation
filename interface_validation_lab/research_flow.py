@@ -17,7 +17,7 @@ from typing import Any
 from run_study import resolve_user_path
 from validation_lab import LabError, _gallery, build_screen_map
 
-TOOL_VERSION = "2026.11.09.3"
+TOOL_VERSION = "2026.11.09.4"
 
 @dataclass
 class Node:
@@ -128,8 +128,23 @@ def _sha256(path: Path) -> str:
     return value.hexdigest()
 
 
-def _verify_sources(study: Path, manifest: dict[str, Any]) -> None:
+def _verify_sources(study: Path, manifest: dict[str, Any], manifest_path: Path | None = None) -> None:
     ia = study / "ia.md"
+    screens = study / "screens"
+    if not manifest.get("source_ia_sha256") or not isinstance(manifest.get("screen_hashes"), dict):
+        if not ia.is_file() or not screens.is_dir():
+            raise LabError("нельзя обновить контроль исходников: ia.md или screens/ отсутствуют")
+        manifest["source_ia_sha256"] = _sha256(ia)
+        manifest["screen_hashes"] = {
+            path.name: _sha256(path)
+            for path in screens.glob("*.svg")
+            if path.is_file()
+        }
+        if manifest_path is not None:
+            manifest_path.write_text(
+                json.dumps(manifest, ensure_ascii=False, indent=2) + "\n", encoding="utf-8"
+            )
+            print("Обновлён манифест предыдущей версии; результаты исследования сохранены.")
     if not ia.is_file() or _sha256(ia) != manifest.get("source_ia_sha256"):
         raise LabError("исходный ia.md изменился после подготовки; сбросьте research и начните заново")
     expected = manifest.get("screen_hashes", {})
@@ -279,7 +294,7 @@ def build_tree_test(study: Path) -> None:
     if not manifest_path.is_file():
         raise LabError("сначала выполните --prepare-research")
     manifest = json.loads(manifest_path.read_text(encoding="utf-8"))
-    _verify_sources(study, manifest)
+    _verify_sources(study, manifest, manifest_path)
     tasks = _load_tasks(research, manifest["nodes"])
     config = {
         "schemaVersion": 1,
@@ -322,7 +337,7 @@ def summarize_tree_test(study: Path) -> None:
         raise LabError("нет результатов в research/tree_responses; проведите хотя бы одну сессию")
     config = json.loads(config_path.read_text(encoding="utf-8"))
     manifest = json.loads((research / "research_manifest.json").read_text(encoding="utf-8"))
-    _verify_sources(study, manifest)
+    _verify_sources(study, manifest, research / "research_manifest.json")
     sessions = []
     for path in files:
         row = json.loads(path.read_text(encoding="utf-8"))
@@ -395,7 +410,7 @@ def validate_tree_report(study: Path) -> None:
         if not path.is_file() or not path.stat().st_size:
             raise LabError(f"нет обязательного результата: {path}")
     manifest = json.loads(manifest_path.read_text(encoding="utf-8"))
-    _verify_sources(study, manifest)
+    _verify_sources(study, manifest, manifest_path)
     config = json.loads(study_path.read_text(encoding="utf-8"))
     report = report_path.read_text(encoding="utf-8")
     required = (

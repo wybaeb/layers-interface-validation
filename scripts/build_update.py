@@ -8,7 +8,7 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 DIST = ROOT / "dist"
-VERSION = "2026.11.09.3"
+VERSION = "2026.11.09.4"
 FILES = (
     "interface_validation_lab/AGENTS.md",
     "interface_validation_lab/.cline/skills/interface-validation/SKILL.md",

@@ -13,7 +13,7 @@ import zipfile
 from datetime import datetime, timezone
 from pathlib import Path
 
-VERSION = "2026.11.09.3"
+VERSION = "2026.11.09.4"
 BASE_URL = os.environ.get(
     "LAYERS_INTERFACE_UPDATE_BASE_URL",
     "https://wybaeb.github.io/layers-interface-validation/dist",

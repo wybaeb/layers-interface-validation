@@ -12,7 +12,7 @@ class UpdateBundleCase(unittest.TestCase):
         manifest = json.loads((ROOT / "dist" / "update.json").read_text(encoding="utf-8"))
         package = ROOT / "dist" / "interface_validation_update.zip"
         installer = ROOT / "dist" / "install_interface_validation.py"
-        self.assertEqual(manifest["version"], "2026.11.09.3")
+        self.assertEqual(manifest["version"], "2026.11.09.4")
         self.assertEqual(hashlib.sha256(package.read_bytes()).hexdigest(), manifest["sha256"])
         self.assertEqual(hashlib.sha256(installer.read_bytes()).hexdigest(), manifest["installer_sha256"])
         with zipfile.ZipFile(package) as archive:
