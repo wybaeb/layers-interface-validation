@@ -4,6 +4,7 @@ from __future__ import annotations
 
 import argparse
 import base64
+import hashlib
 import html
 import json
 import re
@@ -16,7 +17,7 @@ from typing import Any
 from run_study import resolve_user_path
 from validation_lab import LabError, _gallery, build_screen_map
 
-TOOL_VERSION = "2026.11.09.2"
+TOOL_VERSION = "2026.11.09.3"
 
 @dataclass
 class Node:
@@ -119,6 +120,28 @@ def _read_optional(study: Path, names: tuple[str, ...]) -> str:
     return ""
 
 
+def _sha256(path: Path) -> str:
+    value = hashlib.sha256()
+    with path.open("rb") as source:
+        for chunk in iter(lambda: source.read(1024 * 1024), b""):
+            value.update(chunk)
+    return value.hexdigest()
+
+
+def _verify_sources(study: Path, manifest: dict[str, Any]) -> None:
+    ia = study / "ia.md"
+    if not ia.is_file() or _sha256(ia) != manifest.get("source_ia_sha256"):
+        raise LabError("исходный ia.md изменился после подготовки; сбросьте research и начните заново")
+    expected = manifest.get("screen_hashes", {})
+    current = {
+        path.name: _sha256(path)
+        for path in (study / "screens").glob("*.svg")
+        if path.is_file()
+    }
+    if current != expected:
+        raise LabError("набор исходных SVG изменился после подготовки; сбросьте research и начните заново")
+
+
 def _task_prompt(ia: str, flow: str, nodes: list[dict[str, Any]]) -> str:
     labels = "\n".join(f"- {row['label']}" for row in nodes if row["id"] != "root")
     return f"""# Подготовка исследования структуры и экранов
@@ -196,6 +219,8 @@ def prepare(study: Path) -> None:
         "nodes": nodes,
         "screen_count": len(rows),
         "source_ia": "../ia.md",
+        "source_ia_sha256": _sha256(study / "ia.md"),
+        "screen_hashes": {row["file"]: row["sha256"] for row in rows},
     }
     (research / "research_manifest.json").write_text(
         json.dumps(manifest, ensure_ascii=False, indent=2) + "\n", encoding="utf-8"
@@ -254,6 +279,7 @@ def build_tree_test(study: Path) -> None:
     if not manifest_path.is_file():
         raise LabError("сначала выполните --prepare-research")
     manifest = json.loads(manifest_path.read_text(encoding="utf-8"))
+    _verify_sources(study, manifest)
     tasks = _load_tasks(research, manifest["nodes"])
     config = {
         "schemaVersion": 1,
@@ -295,6 +321,8 @@ def summarize_tree_test(study: Path) -> None:
     if not files:
         raise LabError("нет результатов в research/tree_responses; проведите хотя бы одну сессию")
     config = json.loads(config_path.read_text(encoding="utf-8"))
+    manifest = json.loads((research / "research_manifest.json").read_text(encoding="utf-8"))
+    _verify_sources(study, manifest)
     sessions = []
     for path in files:
         row = json.loads(path.read_text(encoding="utf-8"))
@@ -357,6 +385,40 @@ def summarize_tree_test(study: Path) -> None:
     print(f"Запрос для интерпретации: {(research / 'interpret_tree_testing_prompt.md').as_posix()}")
 
 
+def validate_tree_report(study: Path) -> None:
+    research = study / "research"
+    manifest_path = research / "research_manifest.json"
+    study_path = research / "tree_study.json"
+    report_path = research / "tree_testing.md"
+    revised_path = research / "ia_after_tree_testing.md"
+    for path in (manifest_path, study_path, report_path, revised_path):
+        if not path.is_file() or not path.stat().st_size:
+            raise LabError(f"нет обязательного результата: {path}")
+    manifest = json.loads(manifest_path.read_text(encoding="utf-8"))
+    _verify_sources(study, manifest)
+    config = json.loads(study_path.read_text(encoding="utf-8"))
+    report = report_path.read_text(encoding="utf-8")
+    required = (
+        "## Условия проверки",
+        "## Результаты",
+        "## Маршруты участников",
+        "## Наблюдения и решения",
+        "## Информационная архитектура после проверки",
+    )
+    missing = [heading for heading in required if heading not in report]
+    if missing:
+        raise LabError("в tree_testing.md нет разделов: " + ", ".join(missing))
+    if "Заполните этот раздел после проверки маршрутов" in report:
+        raise LabError("раздел наблюдений ещё не обработан агентом")
+    for task in config.get("tasks", []):
+        if str(task.get("id", "")) not in report:
+            raise LabError(f"в tree_testing.md не разобрано задание {task.get('id')}")
+    parse_ia(revised_path.read_text(encoding="utf-8"))
+    print("TREE REPORT PASS")
+    print(f"Отчёт: {report_path}")
+    print(f"Архитектура после проверки: {revised_path}")
+
+
 def reset_research(study: Path) -> None:
     target = study / "research"
     if target.is_symlink():
@@ -377,6 +439,7 @@ def cli() -> int:
     action.add_argument("--prepare-research", action="store_true")
     action.add_argument("--build-tree-test", action="store_true")
     action.add_argument("--summarize-tree-test", action="store_true")
+    action.add_argument("--validate-tree-report", action="store_true")
     action.add_argument("--reset-research", action="store_true")
     args = parser.parse_args()
     study = resolve_user_path(args.study)
@@ -389,6 +452,8 @@ def cli() -> int:
             build_tree_test(study)
         elif args.summarize_tree_test:
             summarize_tree_test(study)
+        elif args.validate_tree_report:
+            validate_tree_report(study)
         elif args.reset_research:
             reset_research(study)
         return 0

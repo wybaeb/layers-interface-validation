@@ -1,6 +1,8 @@
+import os
+
 from playwright.sync_api import sync_playwright
 
-BASE='http://127.0.0.1:8877'
+BASE=os.environ.get('LAYERS_TEST_BASE_URL','http://127.0.0.1:8877').rstrip('/')
 errors=[]
 with sync_playwright() as p:
     browser=p.chromium.launch(headless=True, executable_path='/usr/bin/google-chrome', args=['--no-sandbox'])

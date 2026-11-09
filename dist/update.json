@@ -1,7 +1,7 @@
 {
-  "version": "2026.11.09.2",
-  "sha256": "782c07925e21fbb7572f6ab463b9d9079db02ec2a1dc10a6e2da6a8028346443",
-  "installer_sha256": "fc0d6e6faa6001b504672e58d71b792bea70ce24af15bc86ea692323496dc6a0",
+  "version": "2026.11.09.3",
+  "sha256": "0cc4f4583d9ecf04017f702eaccca20fe38d0ab9b90eaf55fc6ec8fb64efe890",
+  "installer_sha256": "6ad8a1ee3471240178034ce83a7542e95ec8a5b5ba15409f3615ccb45f7f9658",
   "files": [
     "interface_validation_lab/AGENTS.md",
     "interface_validation_lab/.cline/skills/interface-validation/SKILL.md",

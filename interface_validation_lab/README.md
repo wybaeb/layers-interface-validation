@@ -1,174 +1,81 @@
-# Проверка интерфейса по экранам и транскрипту
+# Проверка структуры и интерфейса
 
-Инструмент помогает связать реплики участника с показанными экранами, собрать наблюдения, подготовить предложения по интерфейсу и описать следующую версию экранов. Исходные материалы остаются неизменными. Нужен Python 3.11 или новее; внешние Python-зависимости не требуются.
+Инструмент связывает два исследования одного продукта:
 
-## Короткий маршрут
+1. tree testing информационной архитектуры;
+2. коридорную проверку статических экранов.
 
-Из корня репозитория выполните:
-
-```bash
-python3 interface_validation.py reset
-python3 interface_validation.py start
-```
-
-Первая команда возвращает демонстрацию в исходное состояние. Она удаляет только созданные
-результаты демо; исходные экраны, транскрипт и личные исследования остаются на месте.
-Вторая команда проверяет входы и собирает рабочую папку. Затем скопируйте напечатанный
-запрос в чат агента. После ответа агента
-выполните:
-
-```bash
-python3 interface_validation.py finish
-```
-
-Команда проверяет связи между цитатами и экранами и сразу собирает читаемый отчёт. Никаких ответов в терминале после запуска не требуется. Те же два шага доступны через **Terminal → Run Task** как `Проверка интерфейса: 1 — подготовить демо` и `Проверка интерфейса: 2 — проверить и собрать отчёт`.
-
-## Быстрый пример
-
-Откройте корневую папку курса в VS Code. Если репозиторий уже скачан, сначала обновите его
-из встроенного терминала, находясь в корне репозитория:
-
-```bash
-git switch master
-git pull --ff-only origin master
-```
-
-Убедитесь, что обновление получено, и запустите демо:
-
-```bash
-test -f interface_validation_lab/run_demo.py
-python3 interface_validation_lab/run_demo.py
-```
-
-Скрипт сам вернёт демо в исходное состояние и подготовит папку `interface_validation_lab/runs/demo-pulse`. В ней откройте:
-
-- `gallery.html` — все экраны в одном автономном HTML-файле;
-- `01_КАРТА_ЭКРАНОВ.md` — список найденных экранов;
-- `inputs/context/` — информационная архитектура, Screen Flow, задания и опросник;
-- `cline_prompt.md` — готовую инструкцию для агента.
-
-Напишите агенту:
-
-```text
-Выполни инструкции из interface_validation_lab/runs/demo-pulse/cline_prompt.md.
-```
-
-Когда агент завершит работу, запустите проверку:
-
-```bash
-python3 interface_validation_lab/launcher.py validate \
-  --workspace interface_validation_lab/runs/demo-pulse \
-  --report interface_validation_lab/runs/demo-pulse/draft_report.json
-```
-
-После проверки в той же папке появятся читаемые результаты:
-
-- `02_НАБЛЮДЕНИЯ.md`;
-- `03_ПРЕДЛОЖЕНИЯ.md`;
-- `04_ПРОТОКОЛ_ПРОВЕРКИ.md`;
-- `05_ВЫВОДЫ.md`;
-- `06_ОПИСАНИЕ_СЛЕДУЮЩЕЙ_ВЕРСИИ.md`;
-- `РЕЗУЛЬТАТЫ.html` — наглядный автономный отчёт для браузера.
-
-Искать служебные данные или редактировать JSON вручную не нужно.
-
-## Собственное исследование
-
-Откройте в VS Code корень студенческого репозитория. Создайте внутри `interface_validation_lab/studies/` одну папку с такой структурой. Каталог `studies/` исключён из Git, поэтому личные транскрипты и локальные результаты не попадут в учебный репозиторий.
+Работайте из корня студенческого репозитория. В папке исследования до начала нужны:
 
 ```text
 interface_validation_lab/studies/my_study/
-├── screens/
-│   ├── Главная.svg
-│   └── Настройки.svg
-├── transcript.md
 ├── ia.md
-├── screen_flow.svg
-├── tasks.md
-└── questionnaire.md
+└── screens/
+    ├── Главная.svg
+    └── Расписание.svg
 ```
 
-Обязательны только `screens/` и `transcript.md`. Каждый frame Figma экспортируйте отдельным SVG. `ia.md` скачивается из тренажёра «Информационная архитектура продукта» командой «Сохранить рабочую архитектуру»; Screen Flow можно добавить одним SVG. Задания и опросник подключаются, если они есть. Транскрипт оставьте обычным: во время показа достаточно естественно проговаривать переходы, например «теперь открою настройки». Технические маркеры расставлять не нужно.
+`transcript.md` появится после проверки экранов. GitLab-логин и `git pull` для обновления инструмента не требуются: готовый запрос из лончера проверит версию и при необходимости установит проверяемый пакет.
 
-Сначала проверьте входы. Команда ничего не создаёт и для каждого отсутствующего файла показывает точный путь и следующее действие:
+## Подготовка исследований
+
+```bash
+python3 interface_validation_lab/research_flow.py --version
+python3 interface_validation_lab/research_flow.py "interface_validation_lab/studies/my_study" --preflight-research
+python3 interface_validation_lab/research_flow.py "interface_validation_lab/studies/my_study" --prepare-research
+```
+
+Выполните созданный `research/prepare_tasks_prompt.md`, затем соберите автономный tree test:
+
+```bash
+python3 interface_validation_lab/research_flow.py "interface_validation_lab/studies/my_study" --build-tree-test
+```
+
+Проведите tree testing через `research/tree_test.html`. Результаты сессий положите в `research/tree_responses/`. Проверку экранов проводите через автономный `research/gallery.html` по сценарию `research/questionnaire.md`; обезличенный транскрипт сохраните как `transcript.md`.
+
+## Отчёт tree testing
+
+```bash
+python3 interface_validation_lab/research_flow.py "interface_validation_lab/studies/my_study" --summarize-tree-test
+```
+
+Выполните `research/interpret_tree_testing_prompt.md`, затем проверьте результаты:
+
+```bash
+python3 interface_validation_lab/research_flow.py "interface_validation_lab/studies/my_study" --validate-tree-report
+```
+
+Успешный результат начинается строкой `TREE REPORT PASS`. Исходный `ia.md` остаётся точкой возврата; предложенная версия сохраняется как `research/ia_after_tree_testing.md`.
+
+## Отчёт по экранам
+
+После появления `transcript.md` выполните:
 
 ```bash
 python3 interface_validation_lab/run_study.py "interface_validation_lab/studies/my_study" --preflight
-```
-
-В Windows PowerShell используйте `py -3` вместо `python3`. После строки `PREFLIGHT PASS` подготовьте рабочую папку:
-
-```bash
 python3 interface_validation_lab/run_study.py "interface_validation_lab/studies/my_study"
 ```
 
-Результат появится в `interface_validation_lab/studies/my_study/results`. На этом шаге создаются `gallery.html`, `cline_prompt.md` и `report_template.json`. Файлы `screen_timeline.json` и `draft_report.json` создаёт агент позже; до подготовки они не являются входами и искать их не нужно.
-
-Передайте агенту созданный `cline_prompt.md`. После работы агента одной командой проверьте и соберите результат:
+Передайте агенту `results/cline_prompt.md`. После его ответа:
 
 ```bash
 python3 interface_validation_lab/run_study.py "interface_validation_lab/studies/my_study" --finish
 ```
 
-Чтобы удалить только созданную подпапку `results` и повторить это исследование с исходных материалов:
+Успешный результат начинается строкой `CONTRACT PASS`. Основной отчёт находится в `results/РЕЗУЛЬТАТЫ.html`.
+
+## Повторный запуск
+
+Удалить только подготовку исследований:
+
+```bash
+python3 interface_validation_lab/research_flow.py "interface_validation_lab/studies/my_study" --reset-research
+```
+
+Удалить только результаты анализа экранов:
 
 ```bash
 python3 interface_validation_lab/run_study.py "interface_validation_lab/studies/my_study" --reset
 ```
 
-Сброс не принимает произвольный выходной путь и не удаляет `screens/`, `transcript.md` или файлы контекста.
-
-Для полной очистки демонстрационного исследования сначала удалите результаты командой выше. Затем проверьте путь и выполните:
-
-```bash
-python3 interface_validation_lab/run_study.py "interface_validation_lab/studies/my_study" --clear-inputs --confirm-delete-inputs
-```
-
-Эта команда без возможности восстановления удаляет только `screens/`, `transcript.md`, `ia.md`, `screen_flow.svg`, `tasks.md` и `questionnaire.md`. Сама папка исследования и файлы с другими именами сохраняются. Если `results/` ещё существует, команда остановится.
-
-Если связь между репликой и экраном неоднозначна, агент оставляет фрагмент без привязки. Старые транскрипты с явными маркерами `Экран: <ID>` продолжают поддерживаться.
-
-## Если исследование записано на аудио или видео
-
-Готовый `transcript.md` можно получить знакомым инструментом корпуса. Из корня репозитория выполните:
-
-```bash
-python3 corpus_lab/tools/transcribe.py /полный/путь/к/записи.mp4 \
-  --engine api \
-  --lang ru \
-  --out interface_validation_lab/studies/my_study
-```
-
-Инструмент сохранит Markdown-файл с именем записи. Проверьте текст и роли, затем переименуйте файл в `transcript.md`. Для демонстрационного набора этот шаг уже выполнен.
-
-## Работа с результатом
-
-PASS означает, что цитаты, экраны и входные файлы связаны корректно. После проверки откройте `results/РЕЗУЛЬТАТЫ.html`: в нём собраны наблюдения, возможные проблемы, предложения и описание следующей версии. Обсудите нужные изменения с агентом в обычном чате. Терминал больше ничего не спрашивает и макеты автоматически не изменяет.
-
-## Команды VS Code
-
-В корневой папке курса откройте `Terminal → Run Task`:
-
-- `Проверка интерфейса: подготовить демо «Пульс»`;
-- `Проверка интерфейса: проверить отчёт демо`;
-- `Проверка интерфейса: вернуть демо в исходное состояние`.
-
-Если меню скрыто, откройте палитру команд `Cmd/Ctrl+Shift+P` и выберите `Tasks: Run Task`.
-
-## Возврат демо в исходное состояние
-
-```bash
-python3 interface_validation_lab/reset_demo.py
-```
-
-Скрипт удаляет созданную папку `runs/demo-pulse` и прежние технические копии этой же
-демонстрации. Исходные экраны, транскрипт и папки собственных исследований не затрагиваются.
-Запускайте эту команду перед репетицией и ещё раз перед записью:
-
-```bash
-python3 interface_validation.py reset
-```
-
-## Если SVG не принят
-
-Повторно экспортируйте frame из Figma отдельным SVG без встроенных изображений и внешних ссылок. Обычные векторы, градиенты, маски, clipping и тени Figma поддерживаются. Прочитайте точное сообщение в терминале: инструмент не меняет исходный файл.
+Исходные `ia.md`, SVG и `transcript.md` эти команды не удаляют.

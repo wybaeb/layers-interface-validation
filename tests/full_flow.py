@@ -32,6 +32,12 @@ with tempfile.TemporaryDirectory() as tmp:
     config=json.loads((research/'tree_study.json').read_text(encoding='utf-8'))
     (research/'tree_responses'/'R1.json').write_text(json.dumps({"studyId":config['id'],"participantId":"R1","results":[{"taskId":"T-01","success":True,"backtracks":0,"firstChoiceLabel":"Команда","pathLabels":["Продукт","Команда"],"durationSeconds":8}]},ensure_ascii=False),encoding='utf-8')
     assert 'TREE TESTING REPORT READY' in run(RESEARCH,study,'--summarize-tree-test')
+    tree_report=research/'tree_testing.md'
+    tree_report.write_text(tree_report.read_text(encoding='utf-8').replace(
+        'Заполните этот раздел после проверки маршрутов. Отделяйте наблюдаемое действие от возможной причины. Изменяйте информационную архитектуру только там, где результат подтверждается проведёнными сессиями.',
+        'T-01 пройден напрямую. Оснований для изменения структуры нет.'
+    ),encoding='utf-8')
+    assert 'TREE REPORT PASS' in run(RESEARCH,study,'--validate-tree-report')
     (study/'transcript.md').write_text('# Проверка\n\nЭкран: Главная\n[00:01] R1: Открываю главный экран.\n\nЭкран: Команда\n[00:05] R1: Здесь вижу команду.\n',encoding='utf-8')
     assert 'PREFLIGHT PASS' in run(SCREEN,study,'--preflight')
     run(SCREEN,study)

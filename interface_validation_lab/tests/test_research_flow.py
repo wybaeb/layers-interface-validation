@@ -14,6 +14,7 @@ from research_flow import (  # noqa: E402
     parse_ia,
     prepare,
     summarize_tree_test,
+    validate_tree_report,
 )
 
 
@@ -80,6 +81,28 @@ class ResearchFlowCase(unittest.TestCase):
         self.assertIn("Наблюдения и решения", report)
         self.assertEqual((research / "ia_after_tree_testing.md").read_text(encoding="utf-8"), (self.study / "ia.md").read_text(encoding="utf-8"))
         self.assertTrue((research / "interpret_tree_testing_prompt.md").is_file())
+        report = research / "tree_testing.md"
+        report.write_text(
+            report.read_text(encoding="utf-8").replace(
+                "Заполните этот раздел после проверки маршрутов. Отделяйте наблюдаемое действие от возможной причины. Изменяйте информационную архитектуру только там, где результат подтверждается проведёнными сессиями.",
+                "T-01: один участник начал с другого раздела; T-02 пройден напрямую. Структура оставлена без изменений.",
+            ),
+            encoding="utf-8",
+        )
+        with contextlib.redirect_stdout(io.StringIO()) as output:
+            validate_tree_report(self.study)
+        self.assertIn("TREE REPORT PASS", output.getvalue())
+
+    def test_source_ia_change_blocks_later_steps(self):
+        with contextlib.redirect_stdout(io.StringIO()):
+            prepare(self.study)
+        research = self.study / "research"
+        (research / "tree_tasks.json").write_text(
+            '{"tasks":[{"prompt":"Найти расписание","targetLabel":"Расписание"}]}', encoding="utf-8"
+        )
+        (self.study / "ia.md").write_text("# Изменено\n\n- Другая структура\n", encoding="utf-8")
+        with self.assertRaises(Exception):
+            build_tree_test(self.study)
 
     def test_task_target_must_exist_in_tree(self):
         with contextlib.redirect_stdout(io.StringIO()):

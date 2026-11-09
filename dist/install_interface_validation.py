@@ -13,7 +13,7 @@ import zipfile
 from datetime import datetime, timezone
 from pathlib import Path
 
-VERSION = "2026.11.09.2"
+VERSION = "2026.11.09.3"
 BASE_URL = os.environ.get(
     "LAYERS_INTERFACE_UPDATE_BASE_URL",
     "https://wybaeb.github.io/layers-interface-validation/dist",
@@ -79,11 +79,11 @@ def main() -> int:
             target.parent.mkdir(parents=True, exist_ok=True)
             shutil.copy2(source, target)
         installed = root / "interface_validation_lab" / "research_flow.py"
-        print(f"UPDATE PASS · interface validation {VERSION}")
         print(f"Установлено: {installed}")
         print("Папки studies/, research/ и results/ не изменялись.")
         if backup.exists():
             print(f"Точка возврата: {backup}")
+        print(f"UPDATE PASS · interface validation {VERSION}")
     return 0
 
 
