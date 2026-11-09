@@ -383,10 +383,10 @@ class LabCase(unittest.TestCase):
             return
         tasks = json.loads((ROOT.parent / ".vscode" / "tasks.json").read_text(encoding="utf-8"))
         labels = {task.get("label") for task in tasks["tasks"]}
-        self.assertIn("Проверка интерфейса: 1 — подготовить демо", labels)
-        self.assertIn("Проверка интерфейса: подготовить своё исследование", labels)
-        self.assertIn("Проверка интерфейса: вернуть демо в исходное состояние", labels)
-        self.assertIn("Проверка интерфейса: 2 — проверить и собрать отчёт", labels)
+        self.assertIn("Проверка интерфейса: проверить входы", labels)
+        self.assertIn("Проверка интерфейса: подготовить исследование", labels)
+        self.assertIn("Проверка интерфейса: проверить и собрать отчёт", labels)
+        self.assertIn("Проверка интерфейса: сбросить результаты", labels)
 
     def test_demo_reset_removes_only_demo_state(self):
         runs = ROOT / "runs"

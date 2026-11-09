@@ -3,168 +3,165 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Лончер · Проверка интерфейса</title>
+<title>Лончер · Проверка структуры и интерфейса</title>
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%23ff5533'/%3E%3Cpath d='M9 16h14M16 9v14' stroke='%231e2027' stroke-width='4'/%3E%3C/svg%3E">
 <style>
-*{box-sizing:border-box}:root{color-scheme:dark;--bg:#1e2027;--panel:#292d36;--panel2:#242730;--ink:#f3f4f7;--muted:#b5bcc8;--accent:#ff5533;--line:#596171;--ok:#91c6aa}body{margin:0;background:var(--bg);color:var(--ink);font:17px/1.58 system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}main{max-width:940px;margin:auto;padding:48px 28px 80px}header{margin-bottom:34px}.brand{font-size:13px;letter-spacing:.1em;color:var(--accent);font-weight:750}h1{max-width:780px;font-size:44px;line-height:1.1;margin:12px 0 18px}h2{font-size:27px;line-height:1.24;margin:0 0 14px}h3{font-size:19px;margin:22px 0 8px}p{margin:10px 0}section,.setup,details{background:var(--panel);padding:28px;border-radius:14px;margin:20px 0}.num{color:var(--accent);font-size:14px;font-weight:750;margin-bottom:10px}.lead{font-size:20px;max-width:810px;color:#d8dce3}.result{border-left:3px solid var(--ok);padding-left:16px;color:#c8ced8;margin-top:18px}.small,.label{font-size:14px;color:var(--muted)}.field{margin:18px 0}.field label{display:block;font-weight:700;margin-bottom:7px}.field input{display:block;width:100%;border:1px solid #707a8e;background:#181a20;color:var(--ink);border-radius:9px;padding:13px 14px;font:16px/1.4 ui-monospace,SFMono-Regular,Consolas,monospace}.field input:focus{outline:3px solid #ff9b85;outline-offset:2px;border-color:transparent}.tree{background:#1a1c22;border:1px solid #444b58;border-radius:10px;padding:16px 18px;margin:15px 0;white-space:pre-wrap;overflow-wrap:anywhere;word-break:break-word;font:14px/1.55 ui-monospace,SFMono-Regular,Consolas,monospace}.block{margin:18px 0}.copyrow{display:flex;gap:12px;align-items:flex-start;padding:15px;background:#1a1c22;border:1px solid #444b58;border-radius:10px}pre{margin:0;flex:1;min-width:0;white-space:pre-wrap;overflow-wrap:anywhere;font:14px/1.55 ui-monospace,SFMono-Regular,Consolas,monospace}.prompt{font-family:inherit;font-size:15px}button,.button{font:inherit;font-size:14px;font-weight:650;color:var(--ink);border:1px solid #707a8e;background:transparent;border-radius:8px;padding:9px 12px;cursor:pointer;flex-shrink:0;text-decoration:none}button:hover,.button:hover{border-color:#aab1be}button:focus-visible,a:focus-visible,summary:focus-visible{outline:3px solid #ff9b85;outline-offset:3px}.actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:14px}.utility-actions{display:flex;justify-content:flex-end;gap:8px;flex-wrap:wrap;margin-top:16px}.utility-actions button{padding:6px 9px;font-size:12px;font-weight:600;color:var(--muted);border-color:#4d5461}.utility-actions .danger:hover{color:#ffb09f;border-color:var(--accent)}.check{margin:15px 0;padding:13px 15px;border:1px solid var(--line);border-radius:9px}.error{margin:10px 0;color:#ffb09f;font-weight:700}.error[hidden]{display:none}.contract{width:100%;border-collapse:collapse;margin:16px 0}.contract th,.contract td{text-align:left;vertical-align:top;padding:10px 8px;border-bottom:1px solid #4b5260}.contract th{font-size:13px;color:var(--muted)}.files{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;margin:16px 0}.file{background:var(--panel2);padding:13px 14px;border-radius:9px}.file code{display:block;color:#fff;font-weight:700;margin-bottom:3px}.file span{font-size:14px;color:var(--muted)}details{padding:0;overflow:hidden}summary{cursor:pointer;padding:22px 28px;font-weight:750;list-style:none}summary::-webkit-details-marker{display:none}summary:after{content:"＋";float:right;color:var(--accent)}details[open] summary:after{content:"−"}.details-body{padding:0 28px 26px;border-top:1px solid #414754}code{font-size:.94em;overflow-wrap:anywhere;word-break:break-word}a{color:inherit;text-decoration:underline;text-underline-offset:3px}#toast{position:fixed;bottom:20px;right:20px;max-width:90%;padding:12px 18px;border-radius:8px;background:var(--ink);color:var(--bg);z-index:10}@media(max-width:650px){main{padding:25px 14px 60px}h1{font-size:34px}section,.setup{padding:20px}summary{padding:20px}.details-body{padding:0 20px 22px}.copyrow{flex-direction:column}.files{grid-template-columns:1fr}pre{width:100%}}@media print{body,section,.setup,details,.copyrow,.tree,.file{background:white;color:black}main{padding:0}button,#toast{display:none}.small,.label,.file span,.result{color:#333}section,details{break-inside:avoid;border:1px solid #bbb}}
+*{box-sizing:border-box}:root{color-scheme:dark;--bg:#1e2027;--panel:#292d36;--panel2:#242730;--ink:#f3f4f7;--muted:#b5bcc8;--accent:#ff5533;--line:#596171;--ok:#91c6aa}body{margin:0;background:var(--bg);color:var(--ink);font:17px/1.58 system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}main{max-width:960px;margin:auto;padding:48px 28px 80px}header{margin-bottom:34px}.brand{font-size:13px;letter-spacing:.1em;color:var(--accent);font-weight:750}h1{max-width:820px;font-size:44px;line-height:1.1;margin:12px 0 18px}h2{font-size:27px;line-height:1.24;margin:0 0 14px}h3{font-size:19px;margin:22px 0 8px}p{margin:10px 0}section,.setup,details{background:var(--panel);padding:28px;border-radius:14px;margin:20px 0}.num{color:var(--accent);font-size:14px;font-weight:750;margin-bottom:10px}.lead{font-size:20px;max-width:840px;color:#d8dce3}.result{border-left:3px solid var(--ok);padding-left:16px;color:#c8ced8;margin-top:18px}.small,.label{font-size:14px;color:var(--muted)}.field{margin:18px 0}.field label{display:block;font-weight:700;margin-bottom:7px}.field input{display:block;width:100%;border:1px solid #707a8e;background:#181a20;color:var(--ink);border-radius:9px;padding:13px 14px;font:16px/1.4 ui-monospace,SFMono-Regular,Consolas,monospace}.field input:focus{outline:3px solid #ff9b85;outline-offset:2px;border-color:transparent}.tree{background:#1a1c22;border:1px solid #444b58;border-radius:10px;padding:16px 18px;margin:15px 0;white-space:pre-wrap;overflow-wrap:anywhere;word-break:break-word;font:14px/1.55 ui-monospace,SFMono-Regular,Consolas,monospace}.flow{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px;margin:18px 0}.flow div{padding:14px;background:var(--panel2);border-radius:10px}.flow strong{display:block;color:var(--accent);font-size:13px;margin-bottom:4px}.block{margin:18px 0}.copyrow{display:flex;gap:12px;align-items:flex-start;padding:15px;background:#1a1c22;border:1px solid #444b58;border-radius:10px}pre{margin:0;flex:1;min-width:0;white-space:pre-wrap;overflow-wrap:anywhere;font:14px/1.55 ui-monospace,SFMono-Regular,Consolas,monospace}.prompt{font-family:inherit;font-size:15px}button,.button{font:inherit;font-size:14px;font-weight:650;color:var(--ink);border:1px solid #707a8e;background:transparent;border-radius:8px;padding:9px 12px;cursor:pointer;flex-shrink:0;text-decoration:none}button:hover,.button:hover{border-color:#aab1be}button:focus-visible,a:focus-visible,summary:focus-visible{outline:3px solid #ff9b85;outline-offset:3px}.actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:14px}.utility-actions{display:flex;justify-content:flex-end;gap:8px;flex-wrap:wrap;margin-top:16px}.utility-actions button{padding:6px 9px;font-size:12px;font-weight:600;color:var(--muted);border-color:#4d5461}.utility-actions .danger:hover{color:#ffb09f;border-color:var(--accent)}.check{margin:15px 0;padding:13px 15px;border:1px solid var(--line);border-radius:9px}.error{margin:10px 0;color:#ffb09f;font-weight:700}.error[hidden]{display:none}.contract{width:100%;border-collapse:collapse;margin:16px 0}.contract th,.contract td{text-align:left;vertical-align:top;padding:10px 8px;border-bottom:1px solid #4b5260}.contract th{font-size:13px;color:var(--muted)}.files{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;margin:16px 0}.file{background:var(--panel2);padding:13px 14px;border-radius:9px}.file code{display:block;color:#fff;font-weight:700;margin-bottom:3px}.file span{font-size:14px;color:var(--muted)}details{padding:0;overflow:hidden}summary{cursor:pointer;padding:22px 28px;font-weight:750;list-style:none}summary::-webkit-details-marker{display:none}summary:after{content:"＋";float:right;color:var(--accent)}details[open] summary:after{content:"−"}.details-body{padding:0 28px 26px;border-top:1px solid #414754}code{font-size:.94em;overflow-wrap:anywhere;word-break:break-word}a{color:inherit;text-decoration:underline;text-underline-offset:3px}#toast{position:fixed;bottom:20px;right:20px;max-width:90%;padding:12px 18px;border-radius:8px;background:var(--ink);color:var(--bg);z-index:10}@media(max-width:780px){.flow{grid-template-columns:1fr 1fr}}@media(max-width:650px){main{padding:25px 14px 60px}h1{font-size:34px}section,.setup{padding:20px}summary{padding:20px}.details-body{padding:0 20px 22px}.copyrow{flex-direction:column}.files,.flow{grid-template-columns:1fr}pre{width:100%}}@media print{body,section,.setup,details,.copyrow,.tree,.file,.flow div{background:white;color:black}main{padding:0}button,#toast{display:none}.small,.label,.file span,.result{color:#333}section,details{break-inside:avoid;border:1px solid #bbb}}
 </style>
 </head>
 <body><main>
 <header>
   <p class="brand">LAYERS × KARPOV.COURSES</p>
-  <h1>Проверка интерфейса по экранам и транскрипту</h1>
-  <p class="lead">Сложите материалы одного исследования в одну папку. Лончер сформирует команды и запрос для агента: он сопоставит реплики с экранами, найдёт подтверждённые разрывы и подготовит предложения для вашей проверки.</p>
-  <p class="result">Результат: карта экранов, автономная галерея, разметка транскрипта, читаемый отчёт, предложения по изменениям и описание следующей версии прототипа.</p>
+  <h1>Проверка структуры и интерфейса</h1>
+  <p class="lead">Подготовьте два связанных исследования одного продукта. Сначала проверьте, находят ли люди нужный раздел в текстовом дереве. Затем покажите экраны и проверьте пользовательский маршрут. Лончер соберёт результаты в <code>tree_testing.md</code> и отчёт по экранам.</p>
+  <div class="flow"><div><strong>01</strong>Материалы проекта</div><div><strong>02</strong>Tree testing</div><div><strong>03</strong>Проверка экранов</div><div><strong>04</strong>Решения и новая версия</div></div>
+  <p class="result">Результат: автономный тест дерева, галерея экранов, сценарий модератора, <code>tree_testing.md</code>, уточнённая информационная архитектура и проверенный отчёт по интерфейсу.</p>
 </header>
 
 <div class="setup">
   <h2>Укажите папку исследования</h2>
-  <p>Откройте в VS Code корень студенческого репозитория. Укажите путь к исследованию относительно этой папки. Используйте <code>/</code> на Windows, macOS и Linux.</p>
+  <p>Откройте в VS Code корень студенческого репозитория и укажите путь относительно него. Один путь используется во всех шагах на Windows, macOS и Linux.</p>
   <div class="field"><label for="study-path">Относительный путь</label><input id="study-path" value="interface_validation_lab/studies/my_study" autocomplete="off" spellcheck="false" aria-describedby="path-help path-error"></div>
-  <p id="path-help" class="small">Не вставляйте <code>C:\...</code>, <code>/home/...</code> или имя другой рабочей области. Один и тот же относительный путь используется во всех шагах.</p>
+  <p id="path-help" class="small">Используйте <code>/</code>. Абсолютный путь тоже принимает инструмент, но для повторяемой работы удобнее относительный.</p>
   <p id="path-error" class="error" hidden>Укажите путь внутри открытого репозитория, например interface_validation_lab/studies/my_study.</p>
   <div class="tree"><span id="tree-root">interface_validation_lab/studies/my_study</span>/
-├── screens/             обязательно: один SVG на экран
-├── transcript.md        обязательно: транскрипт текущего тестирования
-├── ia.md                необязательно: дерево разделов
-├── screen_flow.svg      необязательно: связи экранов
-├── tasks.md             необязательно: задания исследования
-├── questionnaire.md     необязательно: вопросы модератора
-└── results/              создаётся автоматически на шаге 03
+├── ia.md                         обязательно до исследования
+├── screens/                      обязательно: один SVG на экран
+├── user_flow.md                  необязательно: маршрут пользователя
+├── screen_flow.svg               необязательно: схема переходов
+├── research/                     создаётся до сессий
+│   ├── gallery.html
+│   ├── prepare_tasks_prompt.md
+│   ├── tree_tasks.json
+│   ├── questionnaire.md
+│   ├── tree_test.html
+│   ├── tree_responses/
+│   ├── tree_testing.md
+│   └── ia_after_tree_testing.md
+├── transcript.md                 появляется после проверки экранов
+└── results/                       создаётся при анализе транскрипта
     ├── gallery.html
-    ├── cline_prompt.md
-    ├── report_template.json
     ├── screen_timeline.json
-    └── draft_report.json</div>
-  <p class="small">До шага 03 папки <code>results/</code> и файлов внутри неё быть не должно. <code>cline_prompt.md</code> и шаблон отчёта создаёт инструмент; <code>screen_timeline.json</code> и <code>draft_report.json</code> создаёт агент после этого.</p>
+    ├── draft_report.json
+    └── РЕЗУЛЬТАТЫ.html</div>
   <div class="utility-actions" aria-label="Сброс исследования">
-    <button data-copy="reset-prompt" data-confirm="Будет скопирован запрос на удаление только папки results. Исходные экраны и транскрипт сохранятся. Продолжить?">Сброс результатов</button>
-    <button class="danger" data-copy="clear-prompt" data-confirm="Будет скопирован запрос на безвозвратное удаление screens, transcript.md, ia.md, screen_flow.svg, tasks.md и questionnaire.md. Сначала сохраните нужные файлы и удалите results. Продолжить?">Очистка исходных данных</button>
+    <button data-copy="reset-research-prompt" data-confirm="Будет скопирован запрос на удаление только папки research. Исходные ia.md и screens сохранятся. Продолжить?">Сброс подготовки</button>
+    <button data-copy="reset-results-prompt" data-confirm="Будет скопирован запрос на удаление только папки results. Исходные материалы сохранятся. Продолжить?">Сброс анализа</button>
   </div>
-  <p class="small">Кнопки копируют запрос для агента, который сам выберет доступную команду Python.</p>
-  <pre id="reset-prompt" hidden></pre><pre id="clear-prompt" hidden></pre>
+  <pre id="reset-research-prompt" hidden></pre><pre id="reset-results-prompt" hidden></pre>
 </div>
 
-<section><div class="num">01</div><h2>Соберите материалы в одну папку</h2>
-  <p>Экспортируйте каждый показанный frame из Figma отдельным SVG в <code>screens/</code>. Дайте файлам понятные уникальные имена, например <code>Главная.svg</code> и <code>Чат.svg</code>. Запись разговора сохраните как <code>transcript.md</code>.</p>
-  <details>
-    <summary>Как подготовить transcript.md</summary>
-    <div class="details-body">
-      <p><code>transcript.md</code> — транскрипт текущего коридорного тестирования интерфейса. Транскрипты прежних проблемных интервью для этого шага не нужны.</p>
-      <p>Получите текст автоматической расшифровкой или перенесите реплики вручную. Уберите имена, контакты и другие персональные данные; используйте обозначения <code>R1</code>, <code>R2</code> и так далее.</p>
-      <p>Несколько сессий объедините в один файл и отделите заголовками. Ручные маркеры смены экрана не нужны.</p>
-      <div class="tree"># Коридорное тестирование
+<section><div class="num">01</div><h2>Положите исходные материалы в одну папку</h2>
+  <p>Возьмите актуальную информационную архитектуру из предыдущего этапа и сохраните её как <code>ia.md</code>. Экспортируйте каждый проверяемый frame из Figma отдельным SVG в <code>screens/</code>. Если есть User Flow или Screen Flow, положите их рядом.</p>
+  <table class="contract"><thead><tr><th>Вход</th><th>Для чего нужен</th><th>Обязательность</th></tr></thead><tbody>
+    <tr><td><code>ia.md</code></td><td>текстовое дерево для tree testing</td><td>обязательно</td></tr>
+    <tr><td><code>screens/*.svg</code></td><td>автономная галерея и проверка экранов</td><td>обязательно</td></tr>
+    <tr><td><code>user_flow.md</code> или <code>screen_flow.svg</code></td><td>контекст для заданий</td><td>необязательно</td></tr>
+    <tr><td><code>transcript.md</code></td><td>появится после проверки экранов</td><td>на этом шаге не нужен</td></tr>
+  </tbody></table>
+  <p class="small">В названиях файлов экранов используйте понятные уникальные названия. Технические ID придумывать не нужно.</p>
+</section>
+
+<section><div class="num">02</div><h2>Подготовьте оба исследования</h2>
+  <p>Первый запрос проверит входы, создаст автономную галерею и запрос для агента. Затем агент подготовит задания для дерева и сценарий проверки экранов и соберёт <code>tree_test.html</code>.</p>
+  <div class="block"><div class="label">Запрос агенту</div><div class="copyrow"><pre class="prompt" id="prepare-research-prompt"></pre><button data-copy="prepare-research-prompt">Копировать</button></div></div>
+  <div class="actions"><button id="download-prepare">Скачать запрос .md</button></div>
+  <details><summary>Команды без агента</summary><div class="details-body">
+    <div class="block"><div class="label">macOS или Linux</div><div class="copyrow"><pre id="cmd-research-posix"></pre><button data-copy="cmd-research-posix">Копировать</button></div></div>
+    <div class="block"><div class="label">Windows</div><div class="copyrow"><pre id="cmd-research-windows"></pre><button data-copy="cmd-research-windows">Копировать</button></div></div>
+  </div></details>
+  <p class="result">На выходе: <code id="tree-test-inline"></code>, <code>gallery.html</code> и <code>questionnaire.md</code>. Правильные разделы не показываются участнику.</p>
+</section>
+
+<section><div class="num">03</div><h2>Проведите tree testing</h2>
+  <p>Откройте автономный файл <code>tree_test.html</code>. Участник видит задачу и текстовое дерево, выбирает путь и скачивает результат сессии. Сложите полученные JSON-файлы в <code>research/tree_responses/</code>.</p>
+  <div class="copyrow"><pre id="tree-test-path"></pre><button data-copy="tree-test-path">Скопировать путь</button></div>
+  <div class="check">Не показывайте экраны на этом этапе. Иначе вы проверите интерфейс, а не то, понимает ли человек структуру разделов.</div>
+  <p class="small">Количество сессий выбирает исследователь с учётом задачи и доступных участников. Лончер не фиксирует обязательное число.</p>
+</section>
+
+<section><div class="num">04</div><h2>Проведите проверку экранов</h2>
+  <p>Откройте автономную галерею и показывайте участнику нужные экраны по сценарию из <code>questionnaire.md</code>. Запишите разговор и действия, затем сохраните обезличенный транскрипт как <code>transcript.md</code> в корне исследования.</p>
+  <div class="copyrow"><pre id="research-gallery-path"></pre><button data-copy="research-gallery-path">Скопировать путь</button></div>
+  <details><summary>Как подготовить transcript.md</summary><div class="details-body">
+    <p>Объедините несколько сессий в один файл и отделите их заголовками. Используйте коды <code>R1</code>, <code>R2</code> и так далее. Ручные маркеры смены экрана не нужны: достаточно обычных реплик о действиях и переходах.</p>
+    <div class="tree"># Проверка экранов
 
 ## Сессия R1
 Задание: найти нужную функцию и завершить действие
 
 [00:00] Модератор: Покажите, с чего вы начнёте.
-[00:08] R1: Открываю главный экран и ищу настройки.
-
-## Сессия R2
-Задание: найти нужную функцию и завершить действие
-
-[00:00] Модератор: Покажите, с чего вы начнёте.
-[00:06] R2: Сначала открою чат.</div>
-    </div>
-  </details>
-  <div class="check">В обычной речи достаточно называть действие или открываемый экран: «теперь посмотрю чат», «возвращаюсь на главный экран». Агент сопоставит реплики с SVG и отметит неуверенные участки.</div>
-</section>
-
-<section><div class="num">02</div><h2>Проверьте входы</h2>
-  <p>Preflight ничего не создаёт и не изменяет. Он показывает точный найденный путь и действие для каждого отсутствующего входа.</p>
-  <table class="contract"><thead><tr><th>Вход</th><th>Когда появляется</th><th>Обязательность</th></tr></thead><tbody>
-    <tr><td><code>screens/*.svg</code></td><td>экспорт экранов из Figma</td><td>обязательно</td></tr>
-    <tr><td><code>transcript.md</code></td><td>текущее коридорное тестирование</td><td>обязательно</td></tr>
-    <tr><td><code>ia.md</code>, <code>screen_flow.svg</code>, <code>tasks.md</code>, <code>questionnaire.md</code></td><td>предыдущие этапы проекта</td><td>необязательно</td></tr>
-    <tr><td><code>cline_prompt.md</code>, <code>report_template.json</code></td><td>создаст шаг 03</td><td>не являются входами</td></tr>
-    <tr><td><code>screen_timeline.json</code>, <code>draft_report.json</code></td><td>создаст агент на шаге 05</td><td>не являются входами</td></tr>
-  </tbody></table>
-  <div class="block"><div class="label">macOS или Linux · терминал из корня репозитория</div><div class="copyrow"><pre id="cmd-preflight-posix"></pre><button data-copy="cmd-preflight-posix">Копировать</button></div></div>
-  <div class="block"><div class="label">Windows · PowerShell из корня репозитория</div><div class="copyrow"><pre id="cmd-preflight-windows"></pre><button data-copy="cmd-preflight-windows">Копировать</button></div></div>
-  <p class="result">Продолжайте только после строки <code>PREFLIGHT PASS</code>. Если <code>results/</code> уже существует, preflight предложит безопасный сброс и не перезапишет файлы.</p>
-</section>
-
-<section><div class="num">03</div><h2>Создайте галерею и рабочую папку</h2>
-  <p>Отправьте агенту первый запрос. Он выполнит preflight, запустит локальный инструмент и проверит, что результаты появились именно внутри выбранного исследования.</p>
-  <div class="block"><div class="label">Первый запрос агенту</div><div class="copyrow"><pre class="prompt" id="prepare-prompt"></pre><button data-copy="prepare-prompt">Копировать</button></div></div>
-  <div class="actions"><button id="download-prepare-prompt">Скачать первый запрос .md</button></div>
-  <p class="result">После шага должны существовать <code id="gallery-inline">interface_validation_lab/studies/my_study/results/gallery.html</code>, <code>cline_prompt.md</code> и <code>report_template.json</code>. Агент не должен искать или создавать их в другом корне.</p>
-  <details><summary>Запустить без агента</summary><div class="details-body">
-    <div class="block"><div class="label">macOS или Linux</div><div class="copyrow"><pre id="cmd-prepare-posix"></pre><button data-copy="cmd-prepare-posix">Копировать</button></div></div>
-    <div class="block"><div class="label">Windows</div><div class="copyrow"><pre id="cmd-prepare-windows"></pre><button data-copy="cmd-prepare-windows">Копировать</button></div></div>
+[00:08] R1: Открываю главный экран и ищу настройки.</div>
   </div></details>
+  <p class="small">Галерея только показывает экраны и ничего не записывает. Результаты tree testing сохраняет отдельный <code>tree_test.html</code>.</p>
 </section>
 
-<section><div class="num">04</div><h2>Проверьте галерею</h2>
-  <p>Откройте файл:</p>
-  <div class="copyrow"><pre id="gallery-path"></pre><button data-copy="gallery-path">Скопировать путь</button></div>
-  <p>Убедитесь, что все SVG отображаются, имена соответствуют экранам, а мелкий текст читается. Галерея автономна: изображения встроены в HTML.</p>
-  <div class="check">Если экран отсутствует или отображается неправильно, исправьте исходный SVG, сбросьте только <code>results/</code> и повторите шаги 02–03.</div>
+<section><div class="num">05</div><h2>Соберите отчёт tree testing</h2>
+  <p>Команда объединит маршруты участников, успешность, возвраты, первые выборы и время выполнения. Затем агент поможет отделить наблюдения от интерпретаций и подготовит предложенную версию информационной архитектуры.</p>
+  <div class="block"><div class="label">macOS или Linux</div><div class="copyrow"><pre id="cmd-tree-summary-posix"></pre><button data-copy="cmd-tree-summary-posix">Копировать</button></div></div>
+  <div class="block"><div class="label">Windows</div><div class="copyrow"><pre id="cmd-tree-summary-windows"></pre><button data-copy="cmd-tree-summary-windows">Копировать</button></div></div>
+  <div class="block"><div class="label">Запрос агенту после команды</div><div class="copyrow"><pre class="prompt" id="tree-analysis-prompt"></pre><button data-copy="tree-analysis-prompt">Копировать</button></div></div>
+  <p class="result">Получите <code>research/tree_testing.md</code> и <code>research/ia_after_tree_testing.md</code>. Исходный <code>ia.md</code> остаётся точкой возврата.</p>
 </section>
 
-<section><div class="num">05</div><h2>Проведите анализ</h2>
-  <p>Второй запрос использует только файлы, созданные шагом 03. <code>draft_report.json</code> здесь является результатом работы агента, а не входом.</p>
-  <div class="block"><div class="label">Второй запрос агенту</div><div class="copyrow"><pre class="prompt" id="analysis-prompt"></pre><button data-copy="analysis-prompt">Копировать</button></div></div>
-  <div class="actions"><button id="download-analysis-prompt">Скачать второй запрос .md</button></div>
-  <p class="small">Агент работает только внутри выбранной папки исследования, не меняет исходные SVG и транскрипт и не запрашивает внешнюю авторизацию.</p>
+<section><div class="num">06</div><h2>Примите решения по структуре</h2>
+  <p>Проверьте каждую связку «задание → маршрут → первый выбор → возвраты → решение». Примите подтверждённые изменения, отклоните неподтверждённые и только после этого используйте <code>ia_after_tree_testing.md</code> как новую версию информационной архитектуры.</p>
+  <div class="check">Tree testing показывает, где люди искали разделы. Возможную причину формулируйте как гипотезу, если участник не назвал её прямо.</div>
 </section>
 
-<section><div class="num">06</div><h2>Проверьте и соберите отчёт</h2>
-  <p>После ответа агента запустите детерминированную проверку.</p>
+<section><div class="num">07</div><h2>Подготовьте анализ экранов</h2>
+  <p>Теперь в папке есть и SVG, и <code>transcript.md</code>. Запрос запускает прежний валидируемый анализ, создаёт рабочую папку <code>results/</code> и проверяет, что все результаты лежат внутри выбранного исследования.</p>
+  <div class="block"><div class="label">Запрос агенту</div><div class="copyrow"><pre class="prompt" id="prepare-screen-prompt"></pre><button data-copy="prepare-screen-prompt">Копировать</button></div></div>
+  <div class="actions"><button id="download-screen-prepare">Скачать запрос .md</button></div>
+</section>
+
+<section><div class="num">08</div><h2>Проведите анализ экранов</h2>
+  <p>Агент сопоставит естественный транскрипт с SVG, проверит задания и подготовит предложения только для подтверждённых разрывов.</p>
+  <div class="block"><div class="label">Запрос агенту</div><div class="copyrow"><pre class="prompt" id="screen-analysis-prompt"></pre><button data-copy="screen-analysis-prompt">Копировать</button></div></div>
+  <p class="small">Исходные SVG, <code>transcript.md</code> и результаты tree testing не изменяются.</p>
+</section>
+
+<section><div class="num">09</div><h2>Проверьте и соберите отчёт</h2>
+  <p>После ответа агента запустите детерминированную проверку. Она не задаёт дополнительных вопросов.</p>
   <div class="block"><div class="label">macOS или Linux</div><div class="copyrow"><pre id="cmd-finish-posix"></pre><button data-copy="cmd-finish-posix">Копировать</button></div></div>
   <div class="block"><div class="label">Windows</div><div class="copyrow"><pre id="cmd-finish-windows"></pre><button data-copy="cmd-finish-windows">Копировать</button></div></div>
-  <p class="result">Успешная проверка начинается строкой <code>CONTRACT PASS</code>. Команда не задаёт дополнительных вопросов.</p>
+  <p class="result">Успешная проверка начинается строкой <code>CONTRACT PASS</code>.</p>
 </section>
 
-<section><div class="num">07</div><h2>Откройте готовый отчёт</h2>
-  <p>Все файлы анализа находятся в одной папке:</p>
-  <div class="copyrow"><pre id="results-path"></pre><button data-copy="results-path">Скопировать путь</button></div>
-  <p>Основной наглядный отчёт:</p>
-  <div class="copyrow"><pre id="report-path"></pre><button data-copy="report-path">Скопировать путь</button></div>
+<section><div class="num">10</div><h2>Откройте результаты</h2>
   <div class="files">
-    <div class="file"><code>02_НАБЛЮДЕНИЯ.md</code><span>что произошло и где</span></div>
-    <div class="file"><code>03_ПРЕДЛОЖЕНИЯ.md</code><span>что добавить, изменить или удалить</span></div>
-    <div class="file"><code>05_ВЫВОДЫ.md</code><span>подтверждённые закономерности и ограничения</span></div>
-    <div class="file"><code>06_ОПИСАНИЕ_СЛЕДУЮЩЕЙ_ВЕРСИИ.md</code><span>вход для следующей версии прототипа</span></div>
+    <div class="file"><code>research/tree_testing.md</code><span>результаты проверки структуры</span></div>
+    <div class="file"><code>research/ia_after_tree_testing.md</code><span>версия структуры после принятых решений</span></div>
+    <div class="file"><code>results/РЕЗУЛЬТАТЫ.html</code><span>наглядный отчёт по экранам</span></div>
+    <div class="file"><code>results/06_ОПИСАНИЕ_СЛЕДУЮЩЕЙ_ВЕРСИИ.md</code><span>вход для следующей версии прототипа</span></div>
   </div>
-  <p class="small">Единичное наблюдение не становится общим правилом автоматически. Проверяйте связку «цитата → экран → наблюдение → предложение».</p>
+  <div class="copyrow"><pre id="all-results-path"></pre><button data-copy="all-results-path">Скопировать путь</button></div>
+  <p class="small">Все результаты относятся к одной папке проекта, поэтому структура, экраны, транскрипт и предложения не смешиваются с материалами другого продукта.</p>
 </section>
+
+<details><summary>Посмотреть учебный пример</summary><div class="details-body">
+  <p>Пример показывает только механику файлов и интерфейсов. Для своего проекта используйте собственные <code>ia.md</code>, SVG и результаты сессий.</p>
+  <div class="actions"><a class="button" href="demo/tree_test.html">Tree testing</a><a class="button" href="demo/gallery.html">Галерея экранов</a><a class="button" href="demo/tree_testing.md">Отчёт tree_testing.md</a></div>
+</div></details>
 
 <div id="toast" hidden></div>
 <script>
-const input=document.getElementById('study-path');
-const pathError=document.getElementById('path-error');
-const DEFAULT_STUDY='interface_validation_lab/studies/my_study';
-const TOOL='interface_validation_lab/run_study.py';
+const input=document.getElementById('study-path'),pathError=document.getElementById('path-error');
+const DEFAULT_STUDY='interface_validation_lab/studies/my_study',RESEARCH_TOOL='interface_validation_lab/research_flow.py',SCREEN_TOOL='interface_validation_lab/run_study.py';
 function normalizePath(value){return value.trim().replace(/\\/g,'/').replace(/^\.\//,'').replace(/\/+$/,'').replace(/\/{2,}/g,'/')||DEFAULT_STUDY}
-function validRelativePath(path){return !path.startsWith('/')&&!/^[A-Za-z]:\//.test(path)&&!path.split('/').includes('..')}
-function quote(value){return '"'+value.replace(/"/g,'\\"')+'"'}
-function setText(id,value){document.getElementById(id).textContent=value}
-function downloadText(id,filename){const text=document.getElementById(id).textContent,blob=new Blob([text+'\n'],{type:'text/markdown;charset=utf-8'}),url=URL.createObjectURL(blob),a=document.createElement('a');a.href=url;a.download=filename;document.body.appendChild(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(url),1000);showToast('Запрос скачан')}
-function refresh(){
-  const path=normalizePath(input.value),valid=validRelativePath(path),q=quote(path),results=`${path}/results`;
-  pathError.hidden=valid;input.setAttribute('aria-invalid',valid?'false':'true');
-  const blocked='Сначала укажите относительный путь внутри открытого репозитория.';
-  setText('tree-root',path);setText('gallery-inline',`${results}/gallery.html`);setText('gallery-path',`${results}/gallery.html`);setText('results-path',results);setText('report-path',`${results}/РЕЗУЛЬТАТЫ.html`);
-  if(!valid){for(const id of ['cmd-preflight-posix','cmd-preflight-windows','cmd-prepare-posix','cmd-prepare-windows','cmd-finish-posix','cmd-finish-windows','prepare-prompt','analysis-prompt','reset-prompt','clear-prompt'])setText(id,blocked);return}
-  setText('cmd-preflight-posix',`python3 ${TOOL} ${q} --preflight`);
-  setText('cmd-preflight-windows',`py -3 ${TOOL} ${q} --preflight`);
-  setText('cmd-prepare-posix',`python3 ${TOOL} ${q}`);
-  setText('cmd-prepare-windows',`py -3 ${TOOL} ${q}`);
-  setText('cmd-finish-posix',`python3 ${TOOL} ${q} --finish`);
-  setText('cmd-finish-windows',`py -3 ${TOOL} ${q} --finish`);
-  setText('reset-prompt',`Работай из корня открытого репозитория. Выбери доступную команду Python: python3 на macOS/Linux или py -3 на Windows. Выполни ${TOOL} ${q} --reset. Удали только ${results}; исходные файлы не меняй.`);
-  setText('clear-prompt',`Работай из корня открытого репозитория. Сначала убедись, что ${results} отсутствует. Выбери доступную команду Python: python3 на macOS/Linux или py -3 на Windows. Выполни ${TOOL} ${q} --clear-inputs --confirm-delete-inputs. Не удаляй другие файлы.`);
-  setText('prepare-prompt',`Работай только в корне открытого студенческого репозитория. Не ищи другие рабочие области и не используй абсолютные пути из старых сообщений.\n\nПапка исследования: ${path}\nЛокальный инструмент: ${TOOL}\n\n1. Убедись, что оба пути существуют внутри текущего workspace.\n2. Выбери доступную команду Python: python3 на macOS/Linux или py -3 на Windows.\n3. Запусти инструмент с аргументами ${q} --preflight. Если нет строки PREFLIGHT PASS, перечисли отсутствующие входы с путями и остановись.\n4. После PREFLIGHT PASS запусти тот же инструмент только с аргументом ${q}.\n5. Проверь существование точных файлов: ${results}/gallery.html, ${results}/cline_prompt.md и ${results}/report_template.json.\n6. Ответь тремя найденными путями и остановись.\n\nДо запуска не требуй cline.md, cline_prompt.md, draft_report.json или transcript внутри results: cline_prompt.md и шаблон создаёт инструмент, а draft_report.json появится на следующем шаге. Не создавай результаты вне ${results} и не изменяй исходные SVG или transcript.md.`);
-  setText('analysis-prompt',`Работай только с локальными файлами в ${results}. Не ищи материалы в других папках или внешних репозиториях и не запрашивай внешнюю авторизацию.\n\nОткрой ${results}/cline_prompt.md, который был создан предыдущим шагом, и выполни его инструкции целиком. Используй ${results}/report_template.json как шаблон и точные схемы из ${results}/.cline/skills/interface-validation/SKILL.md. Создай в этой же папке ${results}/screen_timeline.json и ${results}/draft_report.json. Это результаты анализа, а не входные файлы.\n\nСопоставь естественный transcript.md с SVG-экранами. Для каждого задания проверь цепочку: цель участника → ожидаемый результат → выбранный элемент → фактический переход → итог. Разрыв добавляй только при одновременном подтверждении дословной цитатой, наблюдаемым поведением и просмотренным экраном. Если доказательств нет, ничего не выдумывай и зафиксируй ограничение. Исходные файлы не изменяй.\n\nЗапусти указанную в cline_prompt.md локальную проверку. Если она не дала CONTRACT PASS, прочитай ${results}/validation.json, исправь каждую ошибку по схеме skill и повтори проверку. Если объект нельзя подтвердить или заполнить строго по схеме, удали его и добавь ограничение в limitations. Не читай исходники валидатора и не завершай задачу до CONTRACT PASS.\n\nВ конце перечисли два созданных файла. Если cline_prompt.md или report_template.json отсутствует, не ищи их по всей рабочей области: остановись и сообщи, что нужно повторить шаг подготовки для ${path}.`);
-}
-input.addEventListener('input',refresh);refresh();
-let timer;function showToast(message){const t=document.getElementById('toast');t.textContent=message;t.hidden=false;clearTimeout(timer);timer=setTimeout(()=>t.hidden=true,2600)}
-function legacyCopy(text){const area=document.createElement('textarea');area.value=text;area.setAttribute('readonly','');area.style.position='fixed';area.style.opacity='0';document.body.appendChild(area);area.select();let ok=false;try{ok=document.execCommand('copy')}catch(_){}area.remove();return ok}
-function selectForManual(el){const range=document.createRange();range.selectNodeContents(el);const selection=window.getSelection();selection.removeAllRanges();selection.addRange(range)}
-document.addEventListener('click',async event=>{const button=event.target.closest('[data-copy]');if(!button)return;if(button.dataset.confirm&&!window.confirm(button.dataset.confirm))return;const el=document.getElementById(button.dataset.copy),text=el.textContent;let copied=false;if(navigator.clipboard&&window.isSecureContext){try{await navigator.clipboard.writeText(text);copied=true}catch(_){}}if(!copied)copied=legacyCopy(text);if(copied){showToast('Скопировано');return}selectForManual(el);showToast('Текст выделен: нажмите Ctrl+C или Cmd+C')});
-document.getElementById('download-prepare-prompt').addEventListener('click',()=>downloadText('prepare-prompt','01_prepare_interface_validation.md'));
-document.getElementById('download-analysis-prompt').addEventListener('click',()=>downloadText('analysis-prompt','02_analyze_interface_validation.md'));
+function validPath(path){return !path.startsWith('/')&&!/^[A-Za-z]:\//.test(path)&&!path.split('/').includes('..')}
+function q(value){return '"'+value.replace(/"/g,'\\"')+'"'}function set(id,value){document.getElementById(id).textContent=value}
+function downloadText(id,name){const blob=new Blob([document.getElementById(id).textContent+'\n'],{type:'text/markdown;charset=utf-8'}),url=URL.createObjectURL(blob),a=document.createElement('a');a.href=url;a.download=name;a.click();setTimeout(()=>URL.revokeObjectURL(url),1000);toast('Запрос скачан')}
+function refresh(){const path=normalizePath(input.value),valid=validPath(path),quoted=q(path),research=`${path}/research`,results=`${path}/results`,blocked='Сначала укажите относительный путь внутри открытого репозитория.';pathError.hidden=valid;input.setAttribute('aria-invalid',valid?'false':'true');set('tree-root',path);set('tree-test-inline',`${research}/tree_test.html`);set('tree-test-path',`${research}/tree_test.html`);set('research-gallery-path',`${research}/gallery.html`);set('all-results-path',`${research}/tree_testing.md\n${research}/ia_after_tree_testing.md\n${results}/РЕЗУЛЬТАТЫ.html`);if(!valid){['reset-research-prompt','reset-results-prompt','prepare-research-prompt','cmd-research-posix','cmd-research-windows','cmd-tree-summary-posix','cmd-tree-summary-windows','tree-analysis-prompt','prepare-screen-prompt','screen-analysis-prompt','cmd-finish-posix','cmd-finish-windows'].forEach(id=>set(id,blocked));return}
+set('reset-research-prompt',`Работай из корня открытого репозитория. Выполни python3 ${RESEARCH_TOOL} ${quoted} --reset-research (на Windows: py -3). Удали только ${research}; исходные ia.md и screens/ не меняй.`);
+set('reset-results-prompt',`Работай из корня открытого репозитория. Выполни python3 ${SCREEN_TOOL} ${quoted} --reset (на Windows: py -3). Удали только ${results}; исходные материалы и ${research} не меняй.`);
+set('cmd-research-posix',`python3 ${RESEARCH_TOOL} ${quoted} --preflight-research\npython3 ${RESEARCH_TOOL} ${quoted} --prepare-research`);set('cmd-research-windows',`py -3 ${RESEARCH_TOOL} ${quoted} --preflight-research\npy -3 ${RESEARCH_TOOL} ${quoted} --prepare-research`);
+set('prepare-research-prompt',`Работай только в корне открытого студенческого репозитория. Папка исследования: ${path}.\n\n1. Выбери python3 на macOS/Linux или py -3 на Windows. Запусти ${RESEARCH_TOOL} ${quoted} --preflight-research. Если нет PREFLIGHT PASS, перечисли отсутствующие входы и остановись.\n2. Запусти ${RESEARCH_TOOL} ${quoted} --prepare-research.\n3. Открой ${research}/prepare_tasks_prompt.md и выполни его целиком. Сохрани задания дерева в ${research}/tree_tasks.json, а сценарий проверки экранов в ${research}/questionnaire.md.\n4. Запусти ${RESEARCH_TOOL} ${quoted} --build-tree-test.\n5. Проверь точные файлы ${research}/tree_test.html, ${research}/gallery.html и ${research}/questionnaire.md.\n\nНе требуй transcript.md: он появится после исследования. Не меняй ia.md и SVG.`);
+set('cmd-tree-summary-posix',`python3 ${RESEARCH_TOOL} ${quoted} --summarize-tree-test`);set('cmd-tree-summary-windows',`py -3 ${RESEARCH_TOOL} ${quoted} --summarize-tree-test`);
+set('tree-analysis-prompt',`Работай только с файлами исследования ${path}. Выбери python3 на macOS/Linux или py -3 на Windows и запусти ${RESEARCH_TOOL} ${quoted} --summarize-tree-test. Затем открой ${research}/interpret_tree_testing_prompt.md и выполни его целиком. Обнови ${research}/tree_testing.md и ${research}/ia_after_tree_testing.md. Исходный ${path}/ia.md не меняй. Не придумывай причины поведения и не фиксируй обязательное количество участников.`);
+set('prepare-screen-prompt',`Работай только в корне открытого студенческого репозитория. Папка исследования: ${path}.\n\n1. Убедись, что ${path}/screens содержит SVG, а ${path}/transcript.md содержит транскрипт проведённой проверки экранов.\n2. Запусти ${SCREEN_TOOL} ${quoted} --preflight. Если нет PREFLIGHT PASS, перечисли отсутствующие входы и остановись.\n3. После PREFLIGHT PASS запусти ${SCREEN_TOOL} ${quoted}.\n4. Проверь ${results}/gallery.html, ${results}/cline_prompt.md и ${results}/report_template.json.\n\nНе ищи файлы в других рабочих областях. Не требуй заранее draft_report.json: его создаст агент на следующем шаге.`);
+set('screen-analysis-prompt',`Работай только с локальными файлами в ${results}. Открой ${results}/cline_prompt.md и выполни его целиком. Создай ${results}/screen_timeline.json и ${results}/draft_report.json по готовой схеме. Сопоставляй цитаты только с просмотренными SVG и не выдумывай разрывы. Запусти указанную в cline_prompt.md проверку и исправляй ошибки до CONTRACT PASS. Исходные SVG, transcript.md и папку ${research} не меняй.`);
+set('cmd-finish-posix',`python3 ${SCREEN_TOOL} ${quoted} --finish`);set('cmd-finish-windows',`py -3 ${SCREEN_TOOL} ${quoted} --finish`)}
+input.addEventListener('input',refresh);refresh();let timer;function toast(message){const t=document.getElementById('toast');t.textContent=message;t.hidden=false;clearTimeout(timer);timer=setTimeout(()=>t.hidden=true,2400)}function legacyCopy(text){const area=document.createElement('textarea');area.value=text;area.style.position='fixed';area.style.opacity='0';document.body.appendChild(area);area.select();let ok=false;try{ok=document.execCommand('copy')}catch(_){}area.remove();return ok}document.addEventListener('click',async event=>{const button=event.target.closest('[data-copy]');if(!button)return;if(button.dataset.confirm&&!confirm(button.dataset.confirm))return;const text=document.getElementById(button.dataset.copy).textContent;let copied=false;if(navigator.clipboard&&window.isSecureContext){try{await navigator.clipboard.writeText(text);copied=true}catch(_){}}if(!copied)copied=legacyCopy(text);toast(copied?'Скопировано':'Не удалось скопировать')});document.getElementById('download-prepare').onclick=()=>downloadText('prepare-research-prompt','01_prepare_research.md');document.getElementById('download-screen-prepare').onclick=()=>downloadText('prepare-screen-prompt','02_prepare_screen_analysis.md');
 </script>
 </main></body></html>

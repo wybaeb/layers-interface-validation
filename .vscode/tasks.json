@@ -1,0 +1,67 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "Проверка интерфейса: подготовить исследования",
+      "type": "process",
+      "command": "python3",
+      "windows": {"command": "py", "args": ["-3", "${workspaceFolder}/interface_validation_lab/research_flow.py", "${input:study}", "--prepare-research"]},
+      "args": ["${workspaceFolder}/interface_validation_lab/research_flow.py", "${input:study}", "--prepare-research"],
+      "options": {"cwd": "${workspaceFolder}"},
+      "problemMatcher": []
+    },
+    {
+      "label": "Проверка интерфейса: собрать tree testing",
+      "type": "process",
+      "command": "python3",
+      "windows": {"command": "py", "args": ["-3", "${workspaceFolder}/interface_validation_lab/research_flow.py", "${input:study}", "--summarize-tree-test"]},
+      "args": ["${workspaceFolder}/interface_validation_lab/research_flow.py", "${input:study}", "--summarize-tree-test"],
+      "options": {"cwd": "${workspaceFolder}"},
+      "problemMatcher": []
+    },
+    {
+      "label": "Проверка интерфейса: проверить входы",
+      "type": "process",
+      "command": "python3",
+      "windows": {"command": "py", "args": ["-3", "${workspaceFolder}/interface_validation_lab/run_study.py", "${input:study}", "--preflight"]},
+      "args": ["${workspaceFolder}/interface_validation_lab/run_study.py", "${input:study}", "--preflight"],
+      "options": {"cwd": "${workspaceFolder}"},
+      "problemMatcher": []
+    },
+    {
+      "label": "Проверка интерфейса: подготовить исследование",
+      "type": "process",
+      "command": "python3",
+      "windows": {"command": "py", "args": ["-3", "${workspaceFolder}/interface_validation_lab/run_study.py", "${input:study}"]},
+      "args": ["${workspaceFolder}/interface_validation_lab/run_study.py", "${input:study}"],
+      "options": {"cwd": "${workspaceFolder}"},
+      "problemMatcher": []
+    },
+    {
+      "label": "Проверка интерфейса: проверить и собрать отчёт",
+      "type": "process",
+      "command": "python3",
+      "windows": {"command": "py", "args": ["-3", "${workspaceFolder}/interface_validation_lab/run_study.py", "${input:study}", "--finish"]},
+      "args": ["${workspaceFolder}/interface_validation_lab/run_study.py", "${input:study}", "--finish"],
+      "options": {"cwd": "${workspaceFolder}"},
+      "problemMatcher": []
+    },
+    {
+      "label": "Проверка интерфейса: сбросить результаты",
+      "type": "process",
+      "command": "python3",
+      "windows": {"command": "py", "args": ["-3", "${workspaceFolder}/interface_validation_lab/run_study.py", "${input:study}", "--reset"]},
+      "args": ["${workspaceFolder}/interface_validation_lab/run_study.py", "${input:study}", "--reset"],
+      "options": {"cwd": "${workspaceFolder}"},
+      "problemMatcher": []
+    }
+  ],
+  "inputs": [
+    {
+      "id": "study",
+      "type": "promptString",
+      "description": "Путь к папке исследования от корня репозитория",
+      "default": "interface_validation_lab/studies/my_study"
+    }
+  ]
+}

@@ -16,6 +16,7 @@ INPUT_NAMES = (
     "transcript.md",
     "ia.md",
     "screen_flow.svg",
+    "user_flow.md",
     "tasks.md",
     "questionnaire.md",
 )
