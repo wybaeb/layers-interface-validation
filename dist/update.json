@@ -1,0 +1,20 @@
+{
+  "version": "2026.11.09.1",
+  "sha256": "47a7b9a604b616ea7953a6425d4c1e418f8a24ebfb8d8bed724e5db343d12cf7",
+  "installer_sha256": "b9a30fe5bd379a6ffc018209e00d3583a00e24f7adaaf2fcdab8c4268a915d99",
+  "files": [
+    "interface_validation_lab/AGENTS.md",
+    "interface_validation_lab/README.md",
+    "interface_validation_lab/finish_demo.py",
+    "interface_validation_lab/launcher.py",
+    "interface_validation_lab/research_flow.py",
+    "interface_validation_lab/run_study.py",
+    "interface_validation_lab/validation_lab.py",
+    ".vscode/tasks.json"
+  ],
+  "preserves": [
+    "interface_validation_lab/studies",
+    "research",
+    "results"
+  ]
+}

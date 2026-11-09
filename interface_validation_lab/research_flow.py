@@ -16,6 +16,7 @@ from typing import Any
 from run_study import resolve_user_path
 from validation_lab import LabError, _gallery, build_screen_map
 
+TOOL_VERSION = "2026.11.09.1"
 
 @dataclass
 class Node:
@@ -369,6 +370,7 @@ def reset_research(study: Path) -> None:
 
 def cli() -> int:
     parser = argparse.ArgumentParser(description="Подготовить tree testing и проверку экранов")
+    parser.add_argument("--version", action="version", version=TOOL_VERSION)
     parser.add_argument("study", help="абсолютный путь или путь от корня студенческого репозитория")
     action = parser.add_mutually_exclusive_group(required=True)
     action.add_argument("--preflight-research", action="store_true")

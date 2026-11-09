@@ -12,6 +12,8 @@ with sync_playwright() as p:
         assert response and response.status==200
         assert page.locator('h1').inner_text()=='Проверка структуры и интерфейса'
         assert page.locator('section').count()==10
+        assert page.locator('text=Если research_flow.py не найден').count()==1
+        assert page.locator('a[href="dist/install_interface_validation.py"]').count()==1
         page.locator('#study-path').fill('studies/example')
         assert 'studies/example/research/tree_test.html' in page.locator('#tree-test-path').inner_text()
         overflow=page.evaluate('document.documentElement.scrollWidth > document.documentElement.clientWidth')
