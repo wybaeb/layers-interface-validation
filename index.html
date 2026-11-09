@@ -72,7 +72,7 @@
   </div></details>
   <p class="result">На выходе: <code id="tree-test-inline"></code>, <code>gallery.html</code> и <code>questionnaire.md</code>. Правильные разделы не показываются участнику.</p>
   <details><summary>Если research_flow.py не найден</summary><div class="details-body">
-    <p>Это означает, что локальная копия инструмента старше версии <code>2026.11.09.1</code>. Запрос выше сначала проверяет версию и при необходимости устанавливает только файлы инструмента. Папки исследований и результаты не заменяются.</p>
+    <p>Это означает, что локальная копия инструмента старше версии <code>2026.11.09.2</code>. Запрос выше сначала проверяет версию и при необходимости устанавливает только файлы инструмента. Папки исследований и результаты не заменяются.</p>
     <div class="block"><div class="label">macOS или Linux · из корня репозитория</div><div class="copyrow"><pre>python3 -c "import urllib.request; urllib.request.urlretrieve('https://wybaeb.github.io/layers-interface-validation/dist/install_interface_validation.py','/tmp/layers_interface_install.py')"
 python3 /tmp/layers_interface_install.py</pre><button data-copy="manual-install-posix">Копировать</button></div><pre id="manual-install-posix" hidden>python3 -c "import urllib.request; urllib.request.urlretrieve('https://wybaeb.github.io/layers-interface-validation/dist/install_interface_validation.py','/tmp/layers_interface_install.py')"
 python3 /tmp/layers_interface_install.py</pre></div>
@@ -158,7 +158,7 @@ py -3 "$env:TEMP\layers_interface_install.py"</pre></div>
 <div id="toast" hidden></div>
 <script>
 const input=document.getElementById('study-path'),pathError=document.getElementById('path-error');
-const DEFAULT_STUDY='interface_validation_lab/studies/my_study',RESEARCH_TOOL='interface_validation_lab/research_flow.py',SCREEN_TOOL='interface_validation_lab/run_study.py',TOOL_VERSION='2026.11.09.1',INSTALLER='https://wybaeb.github.io/layers-interface-validation/dist/install_interface_validation.py',UPDATE_MANIFEST='https://wybaeb.github.io/layers-interface-validation/dist/update.json';
+const DEFAULT_STUDY='interface_validation_lab/studies/my_study',RESEARCH_TOOL='interface_validation_lab/research_flow.py',SCREEN_TOOL='interface_validation_lab/run_study.py',TOOL_VERSION='2026.11.09.2',INSTALLER='https://wybaeb.github.io/layers-interface-validation/dist/install_interface_validation.py',UPDATE_MANIFEST='https://wybaeb.github.io/layers-interface-validation/dist/update.json';
 function normalizePath(value){return value.trim().replace(/\\/g,'/').replace(/^\.\//,'').replace(/\/+$/,'').replace(/\/{2,}/g,'/')||DEFAULT_STUDY}
 function validPath(path){return !path.startsWith('/')&&!/^[A-Za-z]:\//.test(path)&&!path.split('/').includes('..')}
 function q(value){return '"'+value.replace(/"/g,'\\"')+'"'}function set(id,value){document.getElementById(id).textContent=value}

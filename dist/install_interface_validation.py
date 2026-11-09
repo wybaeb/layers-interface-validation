@@ -13,7 +13,7 @@ import zipfile
 from datetime import datetime, timezone
 from pathlib import Path
 
-VERSION = "2026.11.09.1"
+VERSION = "2026.11.09.2"
 BASE_URL = os.environ.get(
     "LAYERS_INTERFACE_UPDATE_BASE_URL",
     "https://wybaeb.github.io/layers-interface-validation/dist",
@@ -22,6 +22,7 @@ PACKAGE_URL = f"{BASE_URL}/interface_validation_update.zip"
 MANIFEST_URL = f"{BASE_URL}/update.json"
 ALLOWED = {
     "interface_validation_lab/AGENTS.md",
+    "interface_validation_lab/.cline/skills/interface-validation/SKILL.md",
     "interface_validation_lab/README.md",
     "interface_validation_lab/finish_demo.py",
     "interface_validation_lab/launcher.py",

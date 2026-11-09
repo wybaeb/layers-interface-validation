@@ -16,7 +16,7 @@ from typing import Any
 from run_study import resolve_user_path
 from validation_lab import LabError, _gallery, build_screen_map
 
-TOOL_VERSION = "2026.11.09.1"
+TOOL_VERSION = "2026.11.09.2"
 
 @dataclass
 class Node:
